@@ -1,5 +1,5 @@
 import {Warning2} from "./Warning2";
-import {Basket} from "./Basket";
+import {Basket} from "../components/Basket";
 import {Premium} from "./Premium";
 import {Warning} from "./Warning";
 import {Tickets} from "./Tickets";

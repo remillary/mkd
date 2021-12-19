@@ -1,8 +1,32 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import {appApi} from "../lib/state";
+import {inject, observer} from 'mobx-react';
+import {actions} from "../lib/store";
+import {TariffCard} from "../components/TariffCard";
 
-const Tickets = () => {
+const Tickets = inject('store')(observer(({store}) => {
+  const {tariffs} = store;
+
+  useEffect(() => {
+    requestRules();
+  }, [store.date]);
+
+  const requestRules = () => {
+    appApi.requestServiceRulesByDate(store.date, (data) => {
+      actions.setTariffs(data);
+    })
+  };
+
   return (
     <div className="ticket_grid">
+      {tariffs.map(t => (
+        <TariffCard
+          tariffId={t.id}
+          title={t.name}
+          price={t.price}
+          twoWayPrice={t.price * 2}
+        />
+      ))}
       <div className="ticket_card">
         <div className="ticket_top">
           <img src="img/adult-icon.svg" alt="" className="ticket-icon"/>
@@ -232,6 +256,6 @@ const Tickets = () => {
       </div>
     </div>
   );
-};
+}));
 
 export {Tickets};
