@@ -46,7 +46,6 @@ const Basket = inject('store')(observer(({store}) => {
               <p>Я согласен с <a className="rules_link" href="#">правилами МКД</a></p>
             </label>
           </div>
-          {Boolean(formIsValid).toString()} блабла
           {formIsTouched && !formIsValid && (<span className='invalid-form'>
               Вы должны указать E-mail, согласиться с правилами оплата и правилами МКД
             </span>)}
