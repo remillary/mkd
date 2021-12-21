@@ -1,15 +1,28 @@
 import React from 'react';
+import {inject, observer} from "mobx-react";
+import {actions} from "../lib/store";
 
-const TariffCard = (props) => {
+const TariffCard = inject('store')(observer((props) => {
   const {
     tariffId,
     title,
     price,
     twoWayPrice,
+    store
   } = props;
 
-  const onClick = (e) => {
-    console.log(e);
+  const {cart} = store;
+
+  const onClick = () => {
+    console.log(tariffId);
+  };
+
+  const onAdd = () => {
+    actions.addToCart(tariffId);
+  };
+
+  const onRemove = () => {
+    actions.removeFromCart(tariffId);
   };
 
   return (
@@ -33,12 +46,33 @@ const TariffCard = (props) => {
         <div className="ticket_price_col">
           <img src="img/1side.svg" alt="" className="ticket_price_img"/>
           <span className="number_txt">{price}₽</span>
-          <input type="number" className="numb input_amount" id="1" value="1"/>
+          <div className="main_number_plugin line" style={{width: 18}}>
+            <input type="text"
+                   min={0}
+                   max={100}
+                   pattern="[0-9]*"
+                   value={cart[tariffId] || 0}
+                   className="input_plugin_number"
+                   style={{width: 18, height: 32}}
+            />
+            <div className="plus_plugin_number" onClick={onAdd}/>
+            <div className="minus_plugin_number" onClick={onRemove}/>
+          </div>
         </div>
         <div className="ticket_price_col">
           <img src="img/2side.svg" alt="" className="ticket_price_img"/>
           <span className="number_txt">{twoWayPrice}₽</span>
-          <input type="number" className="numb input_amount" id="1" value="1"/>
+          <div className="main_number_plugin line" style={{width: 18}}>
+            <input type="text"
+                   min={0}
+                   max={100}
+                   pattern="[0-9]*"
+                   value={cart[tariffId] || 0}
+                   className="input_plugin_number"
+                   style={{width: 18, height: 32}}/>
+            <div className="plus_plugin_number"/>
+            <div className="minus_plugin_number"/>
+          </div>
         </div>
       </div>
       <button className="ticket_btn" onClick={onClick}>
@@ -61,6 +95,10 @@ const TariffCard = (props) => {
       </button>
     </div>
   );
-};
+}));
 
-export {TariffCard};
+export
+{
+  TariffCard
+}
+  ;

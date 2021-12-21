@@ -9,8 +9,8 @@ const Header = () => {
       <h1 className="header_title">Купить билет</h1>
       <div className="header_row">
         <div className="calendar_wrp">
+          <SelectedDate/>
           <DateSelector/>
-          <CalendarButton/>
         </div>
         <span className="header_txt">акции, %</span>
         <BasketButton/>

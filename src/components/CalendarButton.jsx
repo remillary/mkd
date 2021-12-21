@@ -1,8 +1,9 @@
 import React from 'react';
 
-const CalendarButton = ({onClick}) => {
+const CalendarButton = React.forwardRef((props, ref) => {
+  const {onClick} = props;
   return (
-    <div className="calendar" onClick={onClick}>
+    <div onClick={onClick}>
       <label className="calendar_label" htmlFor="datepicker">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g clipPath="url(#clip0_364:327)">
@@ -27,6 +28,6 @@ const CalendarButton = ({onClick}) => {
       <input className="calendar_input" type="text" id="datepicker"/>
     </div>
   );
-};
+});
 
 export {CalendarButton};
