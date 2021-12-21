@@ -110,17 +110,16 @@ class Api {
     });
   }
 
-  requestPlaceAnyAPIPromoCode(selectedTariffs, promocode = '', callback) {
+  requestPlaceAnyAPIPromoCode(email, date, tariffs, promocode = '', callback) {
     let orderDesc = 's:';
-    // this.windowReference = window.open();
 
-    selectedTariffs.forEach(st => {
-      if (st.count > 0) {
-        orderDesc += `${st.id}:${st.count}:`;
+    Object.entries(tariffs).forEach(([id, count]) => {
+      if (count > 0) {
+        orderDesc += `${id}:${count}:`;
       }
     });
 
-    const data = `email=s:${this.order.email}&adate=ADate:s:${format_effi_date(this.order.date)}&&orderdesc=${orderDesc}&promocode=s:${promocode}`;
+    const data = `email=s:${email}&adate=ADate:s:${format_effi_date(date)}&&orderdesc=${orderDesc}&promocode=s:${promocode}`;
     this.effi.request({
       url: '/nologin/srv/Baloon/PersonOrder/PlaceAnyOnePromocode',
       data,
@@ -132,9 +131,6 @@ class Api {
         this.requestRaiseInvoice(data.amount, data.id);
       },
       error: (err) => {
-        // if (this.windowReference) {
-        //   this.windowReference.close();
-        // }
         console.error(err);
       },
     });
