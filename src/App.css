@@ -753,6 +753,10 @@ ul {
     cursor: pointer;
 }
 
+.pay_btn:disabled {
+    background-color: grey;
+}
+
 .pay_txt {
     font-weight: normal;
     font-size: 14px;
@@ -825,4 +829,11 @@ ul {
     .basket {
         margin-top: 10px;
     }
+}
+
+.invalid-form {
+    display: block;
+    margin-top: 16px;
+    color: red;
+    font-size: 14px;
 }

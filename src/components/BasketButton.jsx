@@ -1,6 +1,7 @@
 import React from 'react';
+import {inject, observer} from "mobx-react";
 
-const BasketButton = () => {
+const BasketButton = inject('store')(observer(({store}) => {
   return (
     <div className="basket">
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -18,9 +19,9 @@ const BasketButton = () => {
           </clipPath>
         </defs>
       </svg>
-      <span>450₽</span>
+      <span>{store.total}₽</span>
     </div>
   );
-};
+}));
 
 export {BasketButton};

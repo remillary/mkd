@@ -1,10 +1,18 @@
-import {action, observable, reaction, toJS} from "mobx";
+import {action, observable, observe, reaction, toJS} from "mobx";
 import moment from "moment";
+import {getTotalPrice} from "../util";
 
 const store = observable({
   tariffs: [],
   date: moment(),
-  cart: {}
+  cart: {},
+  total: 0,
+  email: '',
+  promo: '',
+  payCheck: false,
+  mkdCheck: false,
+  formIsValid: false,
+  formIsTouched: false,
 });
 
 const actions = {
@@ -37,7 +45,28 @@ const actions = {
   }),
 
   clearCart: action(() => {
-    store.cart = {};
+    for (const item in store.cart) {
+      delete store.cart[item];
+    }
+  }),
+
+  setEmail: action((email) => {
+    store.email = email;
+  }),
+  setPromo: action((promo) => {
+    store.promo = promo;
+  }),
+  setPayCheck: action((payCheck) => {
+    store.payCheck = payCheck;
+  }),
+  setMkdCheck: action((mkdCheck) => {
+    store.mkdCheck = mkdCheck;
+  }),
+  setFormIsValid: action((isValid) => {
+    store.formIsValid = isValid;
+  }),
+  setFormIsTouched: action((isTouched) => {
+    store.formIsTouched = isTouched;
   })
 };
 
@@ -47,6 +76,23 @@ reaction(() => store.tariffs, () => {
 
 reaction(() => store.date, () => {
   console.log('date was changed', toJS(store.date));
+});
+
+reaction(() => (store.email + store.payCheck + store.mkdCheck), () => {
+  actions.setFormIsTouched(true);
+  console.log('touch')
+  let errors = 0;
+  if (store.email.trim().length === 0) {
+    errors++;
+  }
+  if (!store.payCheck || !store.mkdCheck) {
+    errors++;
+  }
+  actions.setFormIsValid(errors === 0);
+});
+
+observe(store.cart, () => {
+  store.total = getTotalPrice(store.cart, store.tariffs);
 });
 
 export {store, actions};
