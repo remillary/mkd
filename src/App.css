@@ -236,7 +236,7 @@ ul {
 
 .line .plus_plugin_number:before {
     content: '';
-    background-image: url('assets/img/plus.svg');
+    background-image: url('../public/img/plus.svg');
     background-repeat: no-repeat;
     width: 12px;
     height: 14px;
@@ -245,7 +245,7 @@ ul {
 
 .line .minus_plugin_number:before {
     content: '';
-    background-image: url('assets/img/minus.svg');
+    background-image: url('../public/img/minus.svg');
     background-repeat: no-repeat;
     width: 8px;
     height: 8px;
@@ -487,7 +487,7 @@ ul {
 .input_wrp:first-child::before {
     position: absolute;
     content: '';
-    background-image: url('assets/img/mail_icon.svg');
+    background-image: url('../public/img/mail_icon.svg');
     width: 20px;
     height: 13px;
     background-repeat: no-repeat;
@@ -504,7 +504,7 @@ ul {
 .input_wrp:nth-child(2)::before {
     position: absolute;
     content: '';
-    background-image: url('assets/img/phone_icon.svg');
+    background-image: url('../public/img/phone_icon.svg');
     width: 16px;
     height: 25px;
     background-repeat: no-repeat;
@@ -543,7 +543,7 @@ ul {
 
 .rules_input:checked + .rules_label::before {
     background-color: #F0F6F8;
-    background-image: url('assets/img/checkbox_mark.svg');
+    background-image: url('../public/img/checkbox_mark.svg');
 }
 
 .input_group {
@@ -608,7 +608,7 @@ ul {
 }
 
 .purchases {
-    background-image: url('assets/img/frame.png');
+    background-image: url('../public/img/frame.png');
     background-repeat: no-repeat;
     background-size: 100% 100%;
     width: 340px;
