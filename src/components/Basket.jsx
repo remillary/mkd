@@ -1,7 +1,11 @@
 import React from 'react';
 import {Cart} from "./Cart";
+import {inject, observer} from "mobx-react";
+import {getTotalPrice} from "../util";
 
-const Basket = () => {
+const Basket = inject('store')(observer(({store}) => {
+  const {cart, tariffs} = store;
+
   return (
     <div className="basket_wrapper">
       <h2 className="header_title">Корзина</h2>
@@ -45,8 +49,7 @@ const Basket = () => {
             <input className="basket_input promocode_input" type="text" id="promocode" placeholder="_ _ _ _ _ _"/>
           </label>
           <div className="total_price">
-            <span>Итого:</span>
-            <span>450₽</span>
+            <span>Итого:</span> <span>{getTotalPrice(cart, tariffs)}₽</span>
           </div>
         </div>
         <Cart/>
@@ -57,14 +60,14 @@ const Basket = () => {
                      КАНАТНУЮ ДОРОГУ
                   </span>
           <div className="special_offer_partners">
-            <img src="assets/img/logo1.png" alt="partner"/>
-            <img src="assets/img/logo2.png" alt="partner" width="132" height="41"/>
+            <img src="/img/logo1.svg" alt="partner"/>
+            <img src="/img/logo2.png" alt="partner" width="132" height="41"/>
           </div>
         </div>
 
       </div>
     </div>
   );
-};
+}));
 
 export {Basket};

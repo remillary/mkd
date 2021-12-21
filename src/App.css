@@ -667,6 +667,7 @@ ul {
 
 .purchases_close {
     background-color: #F0F6F8;
+    cursor: pointer;
 }
 
 .purchases_block {

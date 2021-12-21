@@ -22,11 +22,18 @@ const actions = {
   }),
 
   removeFromCart: action((tariffId) => {
-    if (!store.cart[tariffId]) {
-      store.cart[tariffId] = null;
+    let cartElement = store.cart[tariffId];
+    if (!cartElement) {
       return;
     }
-    store.cart[tariffId] = store.cart[tariffId] - 1;
+    store.cart[tariffId] = cartElement - 1;
+    if (store.cart[tariffId] === 0) {
+      delete store.cart[tariffId];
+    }
+  }),
+
+  removeWholeFromCart: action((tariffId) => {
+    delete store.cart[tariffId];
   }),
 
   clearCart: action(() => {

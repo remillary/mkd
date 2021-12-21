@@ -1,9 +1,10 @@
 import React from 'react';
 import {inject, observer} from "mobx-react";
 import {getTariffById} from "../util";
+import {actions} from "../lib/store";
 
 const Cart = inject('store')(observer(({store}) => {
-  const {cart, tariffs} = store;
+  const {cart, tariffs, date} = store;
 
   return (
     <div className="purchases">
@@ -34,7 +35,7 @@ const Cart = inject('store')(observer(({store}) => {
             </clipPath>
           </defs>
         </svg>
-        <span>19. 10. 2021</span>
+        <span>{date.format('DD.MM.yyyy')}</span>
       </div>
       {Object.keys(cart) > 0 && (
         <div className="purchases_inner">
@@ -48,7 +49,6 @@ const Cart = inject('store')(observer(({store}) => {
       )}
       {Object.entries(cart).map((entry) => {
         const [id, count] = entry;
-        console.log(entry);
         const tariff = getTariffById(id, tariffs);
         return tariff && (<CartItem
           key={id}
@@ -56,6 +56,7 @@ const Cart = inject('store')(observer(({store}) => {
           price={tariff.price}
           count={count}
           onRemove={() => {
+            actions.removeWholeFromCart(id);
           }}
         />)
       })}
