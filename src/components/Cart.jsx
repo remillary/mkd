@@ -1,7 +1,6 @@
 import React from 'react';
 import {inject, observer} from "mobx-react";
 import {getTariffById} from "../util";
-import {toJS} from "mobx";
 
 const Cart = inject('store')(observer(({store}) => {
   const {cart, tariffs} = store;
@@ -37,56 +36,47 @@ const Cart = inject('store')(observer(({store}) => {
         </svg>
         <span>19. 10. 2021</span>
       </div>
-      <div className="purchases_inner">
-        <svg width="21" height="13" viewBox="0 0 21 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fillRule="evenodd" clipRule="evenodd"
-                d="M2 0C0.895431 0 0 0.89543 0 2V3.85623C0 4.35784 0.208859 4.8368 0.576433 5.17812C1.34501 5.8918 1.34501 7.1082 0.576433 7.82188C0.208859 8.1632 0 8.64216 0 9.14377V11C0 12.1046 0.89543 13 2 13H19C20.1046 13 21 12.1046 21 11V9.06396C21 8.60661 20.8433 8.16307 20.5559 7.80728L20.515 7.75667C19.9228 7.02353 19.9228 5.97647 20.515 5.24333L20.5559 5.19272C20.8433 4.83693 21 4.39339 21 3.93604V2C21 0.895431 20.1046 0 19 0H2ZM5 3H16V10H5V3ZM4 2H5H16H17V3V10V11H16H5H4V10V3V2Z"
-                fill="#28477C"/>
-        </svg>
-        <span>Билет</span>
-      </div>
-      {Object.entries(cart).map((id, count) => {
+      {Object.keys(cart) > 0 && (
+        <div className="purchases_inner">
+          <svg width="21" height="13" viewBox="0 0 21 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fillRule="evenodd" clipRule="evenodd"
+                  d="M2 0C0.895431 0 0 0.89543 0 2V3.85623C0 4.35784 0.208859 4.8368 0.576433 5.17812C1.34501 5.8918 1.34501 7.1082 0.576433 7.82188C0.208859 8.1632 0 8.64216 0 9.14377V11C0 12.1046 0.89543 13 2 13H19C20.1046 13 21 12.1046 21 11V9.06396C21 8.60661 20.8433 8.16307 20.5559 7.80728L20.515 7.75667C19.9228 7.02353 19.9228 5.97647 20.515 5.24333L20.5559 5.19272C20.8433 4.83693 21 4.39339 21 3.93604V2C21 0.895431 20.1046 0 19 0H2ZM5 3H16V10H5V3ZM4 2H5H16H17V3V10V11H16H5H4V10V3V2Z"
+                  fill="#28477C"/>
+          </svg>
+          <span>Билет</span>
+        </div>
+      )}
+      {Object.entries(cart).map((entry) => {
+        const [id, count] = entry;
+        console.log(entry);
         const tariff = getTariffById(id, tariffs);
         return tariff && (<CartItem
           key={id}
           title={tariff.name}
           price={tariff.price}
+          count={count}
           onRemove={() => {
           }}
         />)
       })}
-      <div className="purchases_block">
-        <div className="purchases_block_inner">
-          <span className="purchases_number">1</span>
-          <div className="purchases_txt">
-            <span>Детский 7+</span>
-            <span>в одну сторону</span>
-            <span>200₽</span>
-          </div>
-        </div>
-        <button className="purchases_close">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4.94975 14.8488L14.8492 4.94926" stroke="#313539" strokeWidth="2"
-                  strokeLinecap="round"/>
-            <path d="M14.8492 14.8488L4.94975 4.94926" stroke="#313539" strokeWidth="2"
-                  strokeLinecap="round"/>
-          </svg>
-        </button>
-      </div>
     </div>
   );
 }));
 
 const CartItem = (props) => {
-  const {title, price, onRemove} = props;
+  const {
+    title,
+    price,
+    count,
+    onRemove
+  } = props;
 
   return (
     <div className="purchases_block">
       <div className="purchases_block_inner">
-        <span className="purchases_number">1</span>
+        <span className="purchases_number">{count}</span>
         <div className="purchases_txt">
           <span>{title}</span>
-          {/*<span>в одну сторону</span>*/}
           <span>{price}</span>
         </div>
       </div>

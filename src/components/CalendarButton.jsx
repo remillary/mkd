@@ -3,7 +3,7 @@ import React from 'react';
 const CalendarButton = React.forwardRef((props, ref) => {
   const {onClick} = props;
   return (
-    <div onClick={onClick}>
+    <div className="calendar-inner" onClick={onClick}>
       <label className="calendar_label" htmlFor="datepicker">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g clipPath="url(#clip0_364:327)">
@@ -25,7 +25,6 @@ const CalendarButton = React.forwardRef((props, ref) => {
         </svg>
         <span className="md_txt">выбрать дату поездки</span>
       </label>
-      <input className="calendar_input" type="text" id="datepicker"/>
     </div>
   );
 });

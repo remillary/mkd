@@ -29,7 +29,6 @@ const Premium = () => {
           <div className="ticket_price_col ticket_col_premium">
             <img src="img/1side.svg" alt="" className="ticket_price_img"/>
             <span className="number_txt">5000₽</span>
-            <input type="number" className="numb input_amount" id="1" value="1"/>
           </div>
         </div>
         <button className="ticket_btn">

@@ -52,6 +52,7 @@ const TariffCard = inject('store')(observer((props) => {
                    max={100}
                    pattern="[0-9]*"
                    value={cart[tariffId] || 0}
+                   onChange={() => {}}
                    className="input_plugin_number"
                    style={{width: 18, height: 32}}
             />
@@ -68,6 +69,7 @@ const TariffCard = inject('store')(observer((props) => {
                    max={100}
                    pattern="[0-9]*"
                    value={cart[tariffId] || 0}
+                   onChange={() => {}}
                    className="input_plugin_number"
                    style={{width: 18, height: 32}}/>
             <div className="plus_plugin_number"/>

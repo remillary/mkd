@@ -12,7 +12,7 @@ const Tickets = inject('store')(observer(({store}) => {
   }, [store.date]);
 
   const requestRules = () => {
-    appApi.requestServiceRulesByDate(store.date, (data) => {
+    appApi.requestServiceRulesByDate(store.date.toDate(), (data) => {
       actions.setTariffs(data);
     })
   };
@@ -72,12 +72,10 @@ const Tickets = inject('store')(observer(({store}) => {
         <div className="ticket_price">
           <div className="ticket_price_col">
             <span className="number_txt">0₽</span>
-            <input type="number" className="numb input_amount" id="1" value="1"/>
           </div>
           <div className="ticket_price_col">
             <img src="img/2side.svg" alt="" className="ticket_price_img"/>
             <span className="number_txt">0₽</span>
-            <input type="number" className="numb input_amount" id="1" value="1"/>
           </div>
         </div>
         <button className="ticket_btn">

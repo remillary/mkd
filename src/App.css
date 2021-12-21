@@ -93,12 +93,26 @@ ul {
 }
 
 .calendar {
-    display: flex;
-    justify-content: center;
     width: 251px;
     height: 57px;
     border: 1px solid #28477C;
     position: relative;
+}
+
+.calendar > div {
+    height: 100%;
+}
+
+.calendar > div > div {
+    height: 100%;
+}
+
+.calendar-inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 }
 
 .calendar_label {
@@ -598,7 +612,7 @@ ul {
     background-repeat: no-repeat;
     background-size: 100% 100%;
     width: 340px;
-    height: 368px;
+    /*height: 368px;*/
     padding: 43px 43px 53px 45px;
 }
 
@@ -665,6 +679,7 @@ ul {
 .basket_block {
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
 }
 
 .purchases_block_inner {

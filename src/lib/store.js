@@ -1,8 +1,9 @@
 import {action, observable, reaction, toJS} from "mobx";
+import moment from "moment";
 
 const store = observable({
   tariffs: [],
-  date: new Date(),
+  date: moment(),
   cart: {}
 });
 
@@ -17,12 +18,10 @@ const actions = {
   }),
 
   addToCart: action((tariffId) => {
-    tariffId = Number(tariffId);
     store.cart[tariffId] = (store.cart[tariffId] == null ? 0 : store.cart[tariffId]) + 1;
   }),
 
   removeFromCart: action((tariffId) => {
-    tariffId = Number(tariffId);
     if (!store.cart[tariffId]) {
       store.cart[tariffId] = null;
       return;

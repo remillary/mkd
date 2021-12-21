@@ -1,6 +1,8 @@
 import React from 'react';
+import {inject, observer} from "mobx-react";
 
-const SelectedDate = () => {
+const SelectedDate = inject('store')(observer(({store}) => {
+  const {date} = store;
   return (
     <div className="ticket">
       <svg width="21" height="13" viewBox="0 0 21 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -9,10 +11,10 @@ const SelectedDate = () => {
               fill="#28477C"/>
       </svg>
       <span className="md_txt">
-                     билет на сегодня, 10. 08. 2021 (вторник)
-            </span>
+        билет на сегодня, {date.format('DD.MM.yyyy')} ({date.toDate().toLocaleString('ru-RU', {weekday: 'long'})})
+      </span>
     </div>
   );
-};
+}));
 
 export {SelectedDate};
