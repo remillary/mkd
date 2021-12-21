@@ -1,13 +1,13 @@
 import {inject, observer} from "mobx-react";
 
 const Footer = inject('store')(observer(({store}) => {
-  const {formIsValid} = store;
+  const {formIsValid, total} = store;
 
   return (
     <footer className="footer">
       <button
         className="pay_btn"
-        disabled={!formIsValid}
+        disabled={!formIsValid || total === 0}
       >
         Оплатить
       </button>
