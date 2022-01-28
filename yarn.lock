@@ -3429,9 +3429,9 @@ ee-first@1.1.1:
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
-"effi-js-lib@ssh://git@bitbucket.org:baloon-workspace/effi-js-lib.git":
+"effi-js-lib@ssh://git@github.com:remillary/effi_lib.git":
   version "1.0.2"
-  resolved "ssh://git@bitbucket.org:baloon-workspace/effi-js-lib.git#6f7b97cd81894e63da5b473f0f75dfb6da26a0de"
+  resolved "ssh://git@github.com:remillary/effi_lib.git#6f7b97cd81894e63da5b473f0f75dfb6da26a0de"
   dependencies:
     "@fdaciuk/ajax" "2.3.0"
 
