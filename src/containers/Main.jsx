@@ -1,5 +1,5 @@
 import {Warning2} from "./Warning2";
-import {Basket} from "../components/Basket";
+import {Cart} from "../components/Cart";
 import {Premium} from "./Premium";
 import {Warning} from "./Warning";
 import {Tickets} from "./Tickets";
@@ -10,7 +10,7 @@ const Main = () => {
       <Tickets/>
       <Warning/>
       <Premium/>
-      <Basket/>
+      <Cart/>
       <Warning2/>
     </>
   );

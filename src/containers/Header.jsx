@@ -1,4 +1,4 @@
-import {BasketButton} from "../components/BasketButton";
+import {CartButton} from "../components/CartButton";
 import {CalendarButton} from "../components/CalendarButton";
 import {SelectedDate} from "../components/SelectedDate";
 import {DateSelector} from "../components/DateSelector";
@@ -13,7 +13,7 @@ const Header = () => {
           <DateSelector/>
         </div>
         <span className="header_txt">акции, %</span>
-        <BasketButton/>
+        <CartButton/>
       </div>
     </header>
   );
