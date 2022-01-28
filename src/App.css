@@ -79,8 +79,8 @@ ul {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 394px;
     height: 57px;
+    padding: 0 15px;
     border: 1px solid #28477C;
     gap: 10px;
 }
@@ -93,8 +93,6 @@ ul {
 }
 
 .calendar {
-    width: 251px;
-    height: 57px;
     border: 1px solid #28477C;
     position: relative;
 }
@@ -104,6 +102,7 @@ ul {
 }
 
 .calendar > div > div {
+    width: 100%;
     height: 100%;
 }
 
@@ -112,7 +111,8 @@ ul {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100%;
+    height: 55px;
+    padding: 0 15px;
 }
 
 .calendar_label {
@@ -121,6 +121,17 @@ ul {
     justify-content: center;
     gap: 10px;
     cursor: pointer;
+}
+
+.react-datepicker-popper,
+.react-datepicker,
+.react-datepicker__month-container
+{
+    width: 100%;
+}
+
+.react-datepicker__current-month {
+    text-transform: capitalize;
 }
 
 .header_txt {
@@ -197,7 +208,6 @@ ul {
 
 .ticket_desc {
     display: flex;
-    align-items: center;
     gap: 30px;
     margin-top: 10px;
     align-items: flex-end;
