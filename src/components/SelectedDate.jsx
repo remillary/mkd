@@ -1,8 +1,26 @@
+import moment from 'moment';
 import React from 'react';
 import {inject, observer} from "mobx-react";
 
 const SelectedDate = inject('store')(observer(({store}) => {
+
   const {date} = store;
+
+  function nearestDayOfWeek(date) {
+
+      function compareWithNearDay(date, daysOffset) {
+          return moment(date).isSame(moment().add(daysOffset, 'day'), 'day');
+      }
+
+      if (!!!date) return '';
+
+      if (compareWithNearDay(date, 0)) return 'сегодня, ';
+      if (compareWithNearDay(date, 1)) return 'завтра, ';
+      if (compareWithNearDay(date, 2)) return 'послезавтра, ';
+
+      return '';
+  }
+
   return (
     <div className="ticket">
       <svg width="21" height="13" viewBox="0 0 21 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -11,7 +29,7 @@ const SelectedDate = inject('store')(observer(({store}) => {
               fill="#28477C"/>
       </svg>
       <span className="md_txt">
-        билет на сегодня, {date.format('DD.MM.yyyy')} ({date.toDate().toLocaleString('ru-RU', {weekday: 'long'})})
+        билет на {nearestDayOfWeek(date)}{date.format('DD.MM.yyyy')} ({date.toDate().toLocaleString('ru-RU', {weekday: 'long'})})
       </span>
     </div>
   );
