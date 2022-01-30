@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {appApi} from "../lib/state";
 import {inject, observer} from 'mobx-react';
 import {actions} from "../lib/store";
-import {TariffCard} from "../components/TariffCard";
+import {SessionCard} from "../components/SessionCard";
 
 const Tickets = inject('store')(observer(({store}) => {
   const {tariffs} = store;
@@ -13,7 +13,8 @@ const Tickets = inject('store')(observer(({store}) => {
 
   const requestRules = () => {
     appApi.requestServiceRulesByDate(store.date.toDate(), (data) => {
-      actions.setTariffs(data);
+      actions.setSessions(data)
+      actions.groupSessions();
     })
   };
 
@@ -24,12 +25,9 @@ const Tickets = inject('store')(observer(({store}) => {
   return (
     <div className="ticket_grid">
       {tariffs.filter(tariffFilter).map(t => (
-        <TariffCard
-          key={t.id}
-          tariffId={t.id}
-          title={t.name}
-          price={t.price}
-          twoWayPrice={t.price * 2}
+        <SessionCard
+          key={t.name}
+          tariff={t}
         />
       ))}
       <div className="ticket_card">
@@ -78,7 +76,7 @@ const Tickets = inject('store')(observer(({store}) => {
             <span className="number_txt">0₽</span>
           </div>
         </div>
-        <button className="ticket_btn">
+        <button className="ticket_btn" >
           <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clipPath="url(#clip0_364:341)">
               <path

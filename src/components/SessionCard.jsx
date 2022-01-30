@@ -1,35 +1,22 @@
 import React from 'react';
 import {inject, observer} from "mobx-react";
-import {actions} from "../lib/store";
+import {actions} from '../lib/store';
 
-const TariffCard = inject('store')(observer((props) => {
-  const {
-    tariffId,
-    title,
-    price,
-    twoWayPrice,
-    store
-  } = props;
+const SessionCard = inject('store')(observer((props) => {
 
-  const {cart} = store;
+  const { selection } = props.store;
 
-  const onClick = () => {
-    console.log(tariffId);
-  };
+  const { name, oneWaySession, roundTripSession } = props.tariff;
 
-  const onAdd = () => {
-    actions.addToCart(tariffId);
-  };
-
-  const onRemove = () => {
-    actions.removeFromCart(tariffId);
-  };
+  const addToCart = (oneWaySessionId, roundTripSessionId) => {
+    actions.addSelectionToCard(oneWaySessionId, roundTripSessionId);
+  }
 
   return (
     <div className="ticket_card">
       <div className="ticket_top">
         <img src="img/adult-icon.svg" alt="" className="ticket-icon"/>
-        <h2 className="ticket_title">{title}</h2>
+        <h2 className="ticket_title">{name}</h2>
         <div className="ticket_desc">
           <svg width="49" height="67" viewBox="0 0 49 67" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -45,39 +32,39 @@ const TariffCard = inject('store')(observer((props) => {
       <div className="ticket_price">
         <div className="ticket_price_col">
           <img src="img/1side.svg" alt="" className="ticket_price_img"/>
-          <span className="number_txt">{price}₽</span>
+          <span className="number_txt">{oneWaySession.price}₽</span>
           <div className="main_number_plugin line" style={{width: 18}}>
             <input type="text"
                    min={0}
                    max={100}
                    pattern="[0-9]*"
-                   value={cart[tariffId] || 0}
+                   value={selection[oneWaySession.id] || 0}
                    onChange={() => {}}
                    className="input_plugin_number"
                    style={{width: 18, height: 32}}
             />
-            <div className="plus_plugin_number" onClick={onAdd}/>
-            <div className="minus_plugin_number" onClick={onRemove}/>
+            <div className="plus_plugin_number" onClick={() => actions.addToSelection(oneWaySession.id)}/>
+            <div className="minus_plugin_number" onClick={() => actions.removeFromSelection(oneWaySession.id)}/>
           </div>
         </div>
         <div className="ticket_price_col">
           <img src="img/2side.svg" alt="" className="ticket_price_img"/>
-          <span className="number_txt">{twoWayPrice}₽</span>
+          <span className="number_txt">{roundTripSession.price}₽</span>
           <div className="main_number_plugin line" style={{width: 18}}>
             <input type="text"
                    min={0}
                    max={100}
                    pattern="[0-9]*"
-                   value={cart[tariffId] || 0}
+                   value={selection[roundTripSession.id] || 0}
                    onChange={() => {}}
                    className="input_plugin_number"
                    style={{width: 18, height: 32}}/>
-            <div className="plus_plugin_number"/>
-            <div className="minus_plugin_number"/>
+            <div className="plus_plugin_number" onClick={() => actions.addToSelection(roundTripSession.id)}/>
+            <div className="minus_plugin_number" onClick={() => actions.removeFromSelection(roundTripSession.id)}/>
           </div>
         </div>
       </div>
-      <button className="ticket_btn" onClick={onClick}>
+      <button className="ticket_btn" onClick={() => addToCart(oneWaySession.id, roundTripSession.id)}>
         <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g clipPath="url(#clip0_364:341)">
             <path
@@ -101,6 +88,6 @@ const TariffCard = inject('store')(observer((props) => {
 
 export
 {
-  TariffCard
+  SessionCard
 }
   ;

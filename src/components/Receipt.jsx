@@ -1,10 +1,10 @@
 import React from 'react';
 import {inject, observer} from "mobx-react";
-import {getTariffById} from "../util";
+import {getSessionById} from "../util";
 import {actions} from "../lib/store";
 
 const Receipt = inject('store')(observer(({store}) => {
-  const {cart, tariffs, date} = store;
+  const {cart, tariffs, sessions, date} = store;
 
   return (
     <div className="purchases">
@@ -49,11 +49,12 @@ const Receipt = inject('store')(observer(({store}) => {
       )}
       {Object.entries(cart).map((entry) => {
         const [id, count] = entry;
-        const tariff = getTariffById(id, tariffs);
-        return tariff && (<CartItem
+        const session = getSessionById(id, sessions);
+
+        return session && (<CartItem
           key={id}
-          title={tariff.name}
-          price={tariff.price}
+          title={session.name}
+          price={session.price}
           count={count}
           onRemove={() => {
             actions.removeWholeFromCart(id);

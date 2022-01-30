@@ -1,11 +1,14 @@
 import {action, observable, observe, reaction, toJS} from "mobx";
 import moment from "moment";
 import {getTotalPrice} from "../util";
+import {groupSessions} from './sessionsGrouping';
 
 const store = observable({
   tariffs: [],
+  sessions: [],
   date: moment(),
-  cart: {},
+  selection: {}, // currently selected sessions
+  cart: {}, // sessions that was already added to cart
   total: 0,
   email: '',
   promo: '',
@@ -16,8 +19,13 @@ const store = observable({
 });
 
 const actions = {
-  setTariffs: action((tariffs) => {
-    store.tariffs = tariffs;
+
+  groupSessions: action(() => {
+    store.tariffs = groupSessions(store.sessions);
+  }),
+
+  setSessions: action((sessions) => {
+    store.sessions = sessions;
   }),
 
   setDate: action((date) => {
@@ -25,19 +33,18 @@ const actions = {
     store.date = date;
   }),
 
-  addToCart: action((tariffId) => {
-    store.cart[tariffId] = (store.cart[tariffId] == null ? 0 : store.cart[tariffId]) + 1;
+  addToSelection: action((sessionId) => {
+    store.selection[sessionId] = (store.selection[sessionId] || 0) + 1;
   }),
 
-  removeFromCart: action((tariffId) => {
-    let cartElement = store.cart[tariffId];
-    if (!cartElement) {
-      return;
-    }
-    store.cart[tariffId] = cartElement - 1;
-    if (store.cart[tariffId] === 0) {
-      delete store.cart[tariffId];
-    }
+  removeFromSelection: action((sessionId) => {
+    if (store.selection[sessionId] === 1) delete store.selection[sessionId];
+    else if (store.selection[sessionId] > 1) store.selection[sessionId]--;
+  }),
+
+  addSelectionToCard: action((oneWaySessionId, roundTripSessionId) => {
+    if (store.selection[oneWaySessionId]) store.cart[oneWaySessionId] = store.selection[oneWaySessionId];
+    if (store.selection[roundTripSessionId]) store.cart[roundTripSessionId] = store.selection[roundTripSessionId];
   }),
 
   removeWholeFromCart: action((tariffId) => {
@@ -92,7 +99,7 @@ reaction(() => (store.email + store.payCheck + store.mkdCheck), () => {
 });
 
 observe(store.cart, () => {
-  store.total = getTotalPrice(store.cart, store.tariffs);
+  store.total = getTotalPrice(store.cart, store.sessions);
 });
 
 export {store, actions};

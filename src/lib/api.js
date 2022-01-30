@@ -1,4 +1,5 @@
 import {EffiProtocol, format_effi_date} from 'effi-js-lib/effi_protocol';
+import {Tariffs} from './sessionsGrouping';
 
 class Api {
   rules = [];
