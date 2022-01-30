@@ -61,6 +61,8 @@ ul {
     border-top: 1px solid #28477C;
     background-color: #28477C;
     color: #FFFFFF;
+
+    transition: background-color .5s;
 }
 
 .btn path {

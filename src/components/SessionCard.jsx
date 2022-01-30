@@ -4,12 +4,31 @@ import {actions} from '../lib/store';
 
 const SessionCard = inject('store')(observer((props) => {
 
-  const { selection } = props.store;
+  const { selection, cart } = props.store;
 
   const { name, oneWaySession, roundTripSession } = props.tariff;
+  
+  const owsid = oneWaySession.id;
+  const rtsid = roundTripSession.id;
 
-  const addToCart = (oneWaySessionId, roundTripSessionId) => {
-    actions.addSelectionToCard(oneWaySessionId, roundTripSessionId);
+  const addToCart = () => {
+    actions.addSelectionToCard(owsid, rtsid);
+  }
+
+  const ticketsQuantityChanged = () => {
+    return (
+        Number(selection[owsid]) !== Number(cart[owsid]) ||
+        Number(selection[rtsid]) !== Number(cart[rtsid])
+    )
+  }
+  
+  const ticketButtonLabel = () => {
+    if (!cart[owsid] && !cart[rtsid])
+      return 'Добавить в корзину';
+    else if(!selection[owsid] && cart[owsid] && !selection[rtsid] && cart[rtsid])
+      return 'Убрать из корзины';
+    else
+      return 'Обновить корзину';
   }
 
   return (
@@ -38,13 +57,13 @@ const SessionCard = inject('store')(observer((props) => {
                    min={0}
                    max={100}
                    pattern="[0-9]*"
-                   value={selection[oneWaySession.id] || 0}
+                   value={selection[owsid] || 0}
                    onChange={() => {}}
                    className="input_plugin_number"
                    style={{width: 18, height: 32}}
             />
-            <div className="plus_plugin_number" onClick={() => actions.addToSelection(oneWaySession.id)}/>
-            <div className="minus_plugin_number" onClick={() => actions.removeFromSelection(oneWaySession.id)}/>
+            <div className="plus_plugin_number" onClick={() => actions.addToSelection(owsid)}/>
+            <div className="minus_plugin_number" onClick={() => actions.removeFromSelection(owsid)}/>
           </div>
         </div>
         <div className="ticket_price_col">
@@ -55,16 +74,20 @@ const SessionCard = inject('store')(observer((props) => {
                    min={0}
                    max={100}
                    pattern="[0-9]*"
-                   value={selection[roundTripSession.id] || 0}
+                   value={selection[rtsid] || 0}
                    onChange={() => {}}
                    className="input_plugin_number"
                    style={{width: 18, height: 32}}/>
-            <div className="plus_plugin_number" onClick={() => actions.addToSelection(roundTripSession.id)}/>
-            <div className="minus_plugin_number" onClick={() => actions.removeFromSelection(roundTripSession.id)}/>
+            <div className="plus_plugin_number" onClick={() => actions.addToSelection(rtsid)}/>
+            <div className="minus_plugin_number" onClick={() => actions.removeFromSelection(rtsid)}/>
           </div>
         </div>
       </div>
-      <button className="btn ticket_btn" disabled={true} onClick={() => addToCart(oneWaySession.id, roundTripSession.id)}>
+      <button
+          className="btn ticket_btn"
+          disabled={!ticketsQuantityChanged()}
+          onClick={addToCart}
+      >
         <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g clipPath="url(#clip0_364:341)">
             <path
@@ -80,7 +103,7 @@ const SessionCard = inject('store')(observer((props) => {
             </clipPath>
           </defs>
         </svg>
-        <span>Добавить в корзину</span>
+        <span>{ticketButtonLabel()}</span>
       </button>
     </div>
   );
