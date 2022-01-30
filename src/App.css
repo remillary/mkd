@@ -57,6 +57,29 @@ ul {
     margin: 0 auto;
 }
 
+.btn {
+    border-top: 1px solid #28477C;
+    background-color: #28477C;
+    color: #FFFFFF;
+}
+
+.btn path {
+    fill: #FFFFFF;
+}
+
+.btn:disabled {
+    cursor: default;
+    background-color: transparent;
+}
+
+.btn:disabled path {
+    fill: #28477C;
+}
+
+.btn:disabled span {
+    color: #28477C;
+}
+
 .header_title {
     font-weight: bold;
     font-size: 24px;
@@ -314,7 +337,6 @@ ul {
 
 .ticket_btn {
     width: 100%;
-    background-color: #28477C;
     height: 58px;
     display: flex;
     justify-content: center;

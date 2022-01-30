@@ -64,7 +64,7 @@ const SessionCard = inject('store')(observer((props) => {
           </div>
         </div>
       </div>
-      <button className="ticket_btn" onClick={() => addToCart(oneWaySession.id, roundTripSession.id)}>
+      <button className="btn ticket_btn" disabled={true} onClick={() => addToCart(oneWaySession.id, roundTripSession.id)}>
         <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g clipPath="url(#clip0_364:341)">
             <path

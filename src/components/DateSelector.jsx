@@ -17,7 +17,7 @@ const DateSelector = inject('store')(observer((store) => {
   registerLocale('ru-RU', ru);
 
   return (
-    <div className="calendar">
+    <div className="btn calendar">
       <DatePicker
         locale={'ru-RU'}
         selected={date}
