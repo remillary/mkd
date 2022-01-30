@@ -42,9 +42,14 @@ const actions = {
     else if (store.selection[sessionId] > 1) store.selection[sessionId]--;
   }),
 
-  addSelectionToCard: action((oneWaySessionId, roundTripSessionId) => {
-    if (store.selection[oneWaySessionId]) store.cart[oneWaySessionId] = store.selection[oneWaySessionId];
-    if (store.selection[roundTripSessionId]) store.cart[roundTripSessionId] = store.selection[roundTripSessionId];
+  syncSelectionAndCart: action((oneWaySessionId, roundTripSessionId) => {
+    const updateOrUpdate = (key) => {
+      if (store.selection[key]) store.cart[key] = store.selection[key]
+      else delete store.cart[key];
+    }
+
+    updateOrUpdate(oneWaySessionId);
+    updateOrUpdate(roundTripSessionId);
   }),
 
   removeWholeFromCart: action((tariffId) => {

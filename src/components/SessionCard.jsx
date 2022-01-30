@@ -12,20 +12,20 @@ const SessionCard = inject('store')(observer((props) => {
   const rtsid = roundTripSession.id;
 
   const addToCart = () => {
-    actions.addSelectionToCard(owsid, rtsid);
+    actions.syncSelectionAndCart(owsid, rtsid);
   }
 
   const ticketsQuantityChanged = () => {
     return (
-        Number(selection[owsid]) !== Number(cart[owsid]) ||
-        Number(selection[rtsid]) !== Number(cart[rtsid])
-    )
+        selection[owsid] !== cart[owsid] ||
+        selection[rtsid] !== cart[rtsid]
+    );
   }
   
   const ticketButtonLabel = () => {
     if (!cart[owsid] && !cart[rtsid])
       return 'Добавить в корзину';
-    else if(!selection[owsid] && cart[owsid] && !selection[rtsid] && cart[rtsid])
+    else if(!selection[owsid] && !selection[rtsid] && (cart[owsid] || cart[rtsid]))
       return 'Убрать из корзины';
     else
       return 'Обновить корзину';
