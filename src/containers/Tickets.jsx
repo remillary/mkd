@@ -14,7 +14,6 @@ const Tickets = inject('store')(observer(({store}) => {
   const requestRules = () => {
     appApi.requestServiceRulesByDate(store.date.toDate(), (data) => {
       actions.setSessions(data)
-      actions.groupSessions();
     })
   };
 

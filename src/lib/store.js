@@ -20,12 +20,9 @@ const store = observable({
 
 const actions = {
 
-  groupSessions: action(() => {
-    store.tariffs = groupSessions(store.sessions);
-  }),
-
   setSessions: action((sessions) => {
     store.sessions = sessions;
+    store.tariffs = groupSessions(store.sessions);
   }),
 
   setDate: action((date) => {
