@@ -1,11 +1,11 @@
 const tariffs = [{
     name: 'Взрослый 14+',
-    oneWaySessionIds: [39, 40],
-    roundTripSessionIds: [12, 14]
+    oneWaySessionIds: [39, 40, 34],
+    roundTripSessionIds: [12, 14, 2]
 }, {
     name: 'Детский 7+',
-    oneWaySessionIds: [199, 201],
-    roundTripSessionIds: [200, 202]
+    oneWaySessionIds: [199, 201, 197],
+    roundTripSessionIds: [200, 202, 198]
 }];
 
 export const groupSessions = (sessions) => {
