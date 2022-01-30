@@ -8,7 +8,7 @@ const Cart = inject('store')(observer(({store}) => {
     total, email, promoCode, payCheck, mkdCheck, formIsValid, formIsTouched
   } = store;
 
-  return (<div className="basket_wrapper">
+  return (<div id="cart" className="basket_wrapper">
     <h2 className="header_title">Корзина</h2>
     <div className="basket_block">
       <div className="basket_col">

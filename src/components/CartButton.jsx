@@ -2,8 +2,14 @@ import React from 'react';
 import {inject, observer} from "mobx-react";
 
 const CartButton = inject('store')(observer(({store}) => {
+
+  const scrollToCart = () => {
+    const cartElement = document.getElementById("cart");
+    if (cartElement) cartElement.scrollIntoView({behavior: 'smooth'});
+  }
+
   return (
-    <div className="basket">
+    <div className="basket" onClick={scrollToCart}>
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clipPath="url(#clip0_364:362)">
           <path
