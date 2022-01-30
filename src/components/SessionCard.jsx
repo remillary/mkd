@@ -1,13 +1,19 @@
 import React from 'react';
 import {inject, observer} from "mobx-react";
 import {actions} from '../lib/store';
+import {TariffType} from '../lib/tariffType';
 
 const SessionCard = inject('store')(observer((props) => {
 
   const { selection, cart } = props.store;
 
-  const { name, oneWaySession, roundTripSession } = props.tariff;
-  
+  const {
+    name,
+    type,
+    oneWaySession,
+    roundTripSession
+  } = props.tariff;
+
   const owsid = oneWaySession.id;
   const rtsid = roundTripSession.id;
 
@@ -34,7 +40,18 @@ const SessionCard = inject('store')(observer((props) => {
   return (
     <div className="ticket_card">
       <div className="ticket_top">
-        <img src="img/adult-icon.svg" alt="" className="ticket-icon"/>
+        {(() => {
+          switch (type) {
+            case TariffType.ADULT:
+              return <img src="img/adult-icon.svg" alt="" className="ticket-icon"/>
+            case TariffType.CHILDREN:
+              return <img src="img/child-icon.svg" alt="" className="ticket-icon"/>
+            case TariffType.PREFERENTIAL:
+            case TariffType.FREE:
+            default:
+              return <div></div>
+          }
+        })()}
         <h2 className="ticket_title">{name}</h2>
         <div className="ticket_desc">
           <svg width="49" height="67" viewBox="0 0 49 67" fill="none" xmlns="http://www.w3.org/2000/svg">
