@@ -18,7 +18,8 @@ const SessionCard = inject('store')(observer((props) => {
   const rtsid = roundTripSession.id;
 
   const addToCart = () => {
-    actions.syncSelectionAndCart(owsid, rtsid);
+    actions.updateOrDeleteCart(owsid);
+    actions.updateOrDeleteCart(rtsid);
   }
 
   const ticketsQuantityChanged = () => {

@@ -39,14 +39,9 @@ const actions = {
     else if (store.selection[sessionId] > 1) store.selection[sessionId]--;
   }),
 
-  syncSelectionAndCart: action((oneWaySessionId, roundTripSessionId) => {
-    const updateOrUpdate = (key) => {
-      if (store.selection[key]) store.cart[key] = store.selection[key]
-      else delete store.cart[key];
-    }
-
-    updateOrUpdate(oneWaySessionId);
-    updateOrUpdate(roundTripSessionId);
+  updateOrDeleteCart: action((key) => {
+    if (store.selection[key]) store.cart[key] = store.selection[key]
+    else delete store.cart[key];
   }),
 
   removeWholeFromCart: action((tariffId) => {
