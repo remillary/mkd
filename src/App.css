@@ -235,7 +235,15 @@ ul {
     display: flex;
     gap: 30px;
     margin-top: 10px;
-    align-items: flex-end;
+    align-items: flex-start;
+}
+
+.cabin_desc {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 145px;
+    max-width: 145px;
 }
 
 .line .input_plugin_number {

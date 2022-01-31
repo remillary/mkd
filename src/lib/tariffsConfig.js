@@ -13,8 +13,8 @@ export const TariffsConfig = [{
 }, {
     name: 'Льготный',
     type: TariffType.PREFERENTIAL,
-    oneWaySessionIds: [],
-    roundTripSessionIds: [],
+    oneWaySessionIds: [199, 201, 197],
+    roundTripSessionIds: [200, 202, 198]
 }, {
     name: 'Бесплатно',
     type: TariffType.FREE,
