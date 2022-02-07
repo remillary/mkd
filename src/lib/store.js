@@ -24,9 +24,9 @@ const actions = {
 
   setSessions: action((sessions) => {
     store.sessions = sessions;
-    console.log('SESSIONS LOADED:');
-    console.log(sessions);
-    store.tariffs = sessionsGroupHelper.group(store.sessions);
+    sessionsGroupHelper
+        .group(store.sessions)
+        .then(groupedSessions => store.tariffs = groupedSessions);
   }),
 
   setDate: action((date) => {
