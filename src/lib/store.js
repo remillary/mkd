@@ -1,7 +1,9 @@
 import {action, observable, observe, reaction, toJS} from "mobx";
 import moment from "moment";
 import {getTotalPrice} from "../util";
-import {groupSessions} from './sessionsGrouping';
+import {SessionsGroupHelper} from './sessionsGroupHelper';
+
+const sessionsGroupHelper = new SessionsGroupHelper();
 
 const store = observable({
   tariffs: [],
@@ -22,7 +24,9 @@ const actions = {
 
   setSessions: action((sessions) => {
     store.sessions = sessions;
-    store.tariffs = groupSessions(store.sessions);
+    console.log('SESSIONS LOADED:');
+    console.log(sessions);
+    store.tariffs = sessionsGroupHelper.group(store.sessions);
   }),
 
   setDate: action((date) => {
